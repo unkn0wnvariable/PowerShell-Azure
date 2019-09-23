@@ -3,7 +3,7 @@
 
 # Import the Az module and connect to Azure
 Import-Module -Name Az
-Connect-AzAccount
+Connect-AzAccount -UseDeviceAuthentication
 
 # Show a selectable list of locations, e.g.: UK South
 $location = (Get-AzLocation | Select-Object -Property DisplayName,Location | Out-GridView -PassThru -Title "Select the Azure location").Location
