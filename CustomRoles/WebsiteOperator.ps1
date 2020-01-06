@@ -13,7 +13,7 @@ $subscriptionNames = @('')
 # What is the name of the new role?
 $roleName = 'Website Operator'
 
-# Which is the description for the new role?
+# What is the description for the new role?
 $roleDescription = 'Lets you view and restart websites and download logs.'
 
 # What actions should the role be able to carry out?
