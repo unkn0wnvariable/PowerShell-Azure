@@ -3,15 +3,20 @@
 # Also grants read access to resource groups to view the websites and access to support.
 #
 
+# Import Az module and connect to account.
 Import-Module -Name Az
 Connect-AzAccount -UseDeviceAuthentication
 
+# Which subscriptions should be able to use the new role?
 $subscriptionNames = @('')
 
+# What is the name of the new role?
 $roleName = 'Website Operator'
 
+# Which is the description for the new role?
 $roleDescription = 'Lets you view and restart websites and download logs.'
 
+# What actions should the role be able to carry out?
 $roleActions = @(
     'Microsoft.Authorization/*/read',
     'Microsoft.Resources/subscriptions/resourceGroups/read',
@@ -22,12 +27,14 @@ $roleActions = @(
     'Microsoft.Support/*'
 )
 
+# Convert subscription names into the assignable scopes format used for custom roles.
 $subscriptionIDs = (Get-AzSubscription | Where-Object { $_.Name -in $subscriptionNames }).Id
 $roleAssignableScopes = @()
 foreach ($subscriptionID in $subscriptionIDs) {
     $roleAssignableScopes += '/subscriptions/' + $subscriptionID
 }
 
+# Check if the role already exists and if to update it, if not create a new one.
 try {
     $role = Get-AzRoleDefinition -Name $roleName -ErrorAction Stop
     $role.Name = $roleName
