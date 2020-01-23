@@ -26,3 +26,6 @@ foreach ($subscription in $subscriptions) {
 
 # Output sorted list of all FQDN's where they are present and the IP is dynamically assigned
 ($publicIPs | Where-Object {$_.PublicIpAllocationMethod -eq 'Dynamic' -and $_.Fqdn -ne $null}).Fqdn | Sort-Object
+
+# Output sorted list of all IP addresses when they are dynamically assigned and no FQDN is present
+$publicIPs | Where-Object {$_.PublicIpAllocationMethod -eq 'Dynamic' -and $_.Fqdn -eq $null} | Sort-Object
