@@ -34,7 +34,7 @@ foreach ($subscriptionID in $subscriptionIDs) {
     $roleAssignableScopes += '/subscriptions/' + $subscriptionID
 }
 
-# Check if the role already exists and if to update it, if not create a new one.
+# Check if the role already exists and if so then try to update it, if not create a new one.
 try {
     $role = Get-AzRoleDefinition -Name $roleName -ErrorAction Stop
     $role.Name = $roleName
