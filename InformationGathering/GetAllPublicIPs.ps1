@@ -21,11 +21,11 @@ foreach ($subscription in $subscriptions) {
     $publicIPs += Get-AzPublicIpAddress | Select-Object Name,IpAddress,PublicIpAllocationMethod,@{Name="Fqdn";Expression={$_.DnsSettings.Fqdn}}
 }
 
-# Output sorted list of all IP addresses when they are statically assigned
-($publicIPs | Where-Object {$_.PublicIpAllocationMethod -eq 'Static'}).IpAddress | Sort-Object
+# Output sorted list of all static IP addresses with no FQDN
+($publicIPs | Where-Object {$_.PublicIpAllocationMethod -eq 'Static' -and $_.Fqdn -eq $null}).IpAddress | Sort-Object
 
-# Output sorted list of all FQDN's where they are present and the IP is dynamically assigned
-($publicIPs | Where-Object {$_.PublicIpAllocationMethod -eq 'Dynamic' -and $_.Fqdn -ne $null}).Fqdn | Sort-Object
+# Output sorted list of all FQDN's
+($publicIPs | Where-Object {$_.Fqdn -ne $null}).Fqdn | Sort-Object
 
-# Output sorted list of all IP addresses when they are dynamically assigned and no FQDN is present
+# Output sorted list of all dynamic IP addresses with no FQDN
 $publicIPs | Where-Object {$_.PublicIpAllocationMethod -eq 'Dynamic' -and $_.Fqdn -eq $null} | Sort-Object
