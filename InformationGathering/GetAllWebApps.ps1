@@ -8,6 +8,9 @@ Connect-AzAccount -UseDeviceAuthentication
 # RegEx to find the subscriptions we care about
 $subscriptionRegEx = '^.*$'
 
+# Where to save the results?
+$outputFile = "C:\Temp\WebApps.txt"
+
 # Get all the relevant subscriptions
 $subscriptions = Get-AzSubscription | Where-Object {$_.Name -match $subscriptionRegEx}
 
@@ -22,4 +25,4 @@ foreach ($subscription in $subscriptions) {
 }
 
 # Output sorted list of all default hostnames for the webapps
-($allWebAppURLs).DefaultHostName | Sort-Object
+($allWebAppURLs).DefaultHostName | Sort-Object >> $outputFile
