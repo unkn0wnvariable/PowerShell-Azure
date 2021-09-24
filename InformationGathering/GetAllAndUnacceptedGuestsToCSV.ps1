@@ -20,4 +20,4 @@ $allGuests | Select-Object DisplayName, Mail, MailNickName, RefreshTokensValidFr
 
 # Filter guests list to those who haven't accepted their invite after the set period, and output the list to CSV
 $oldUnacceptedInvites = $unacceptedInvites | Where-Object { $_.UserState -eq 'PendingAcceptance' -and $_.RefreshTokensValidFromDateTime -lt $cutOffDate }
-$oldUnacceptedInvites | Select-Object DisplayName, Mail, MailNickName, RefreshTokensValidFromDateTime, UserState | Export-CSV -Path 'C:\Temp\AzureAD_Guests_StalePendingAcceptance.csv'
+$oldUnacceptedInvites | Select-Object DisplayName, Mail, MailNickName, RefreshTokensValidFromDateTime, UserState | Export-CSV -Path 'C:\Temp\AzureAD_Guests_StalePendingAcceptance.csv' -NoTypeInformation
