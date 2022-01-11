@@ -25,4 +25,4 @@ foreach ($subscription in $subscriptions) {
 }
 
 # Output sorted list of all default hostnames for the webapps
-($allWebAppURLs).DefaultHostName | Sort-Object >> $outputFile
+Out-File -FilePath $outputFile -InputObject (($allWebAppURLs).DefaultHostName | Sort-Object)
