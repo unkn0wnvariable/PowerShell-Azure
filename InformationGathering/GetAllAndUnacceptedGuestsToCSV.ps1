@@ -4,11 +4,11 @@
 # How many days are we allowing for invites to be accepted?
 $cutOffDays = 30
 
-# Install the AzureADPreview module, uncomment if required
-#Install-Module -Name AzureADPreview
+# Install the AzureAD module, uncomment if required
+#Install-Module -Name AzureAD
 
-# Import the AzureADPreview module and connect to Azure AD
-Import-Module -Name AzureADPreview
+# Import the AzureAD module and connect to Azure AD
+Import-Module -Name AzureAD
 Connect-AzureAD
 
 # Get the cut off date
@@ -19,5 +19,5 @@ $allGuests = Get-AzureADUser -All $true | Where-Object { $_.UserType -eq 'Guest'
 $allGuests | Select-Object DisplayName, Mail, MailNickName, RefreshTokensValidFromDateTime, UserState, UserStateChangedOn | Export-CSV -Path 'C:\Temp\AzureAD_AllGuests.csv'
 
 # Filter guests list to those who haven't accepted their invite after the set period, and output the list to CSV
-$oldUnacceptedInvites = $unacceptedInvites | Where-Object { $_.UserState -eq 'PendingAcceptance' -and $_.RefreshTokensValidFromDateTime -lt $cutOffDate }
+$oldUnacceptedInvites = $allGuests | Where-Object { $_.UserState -eq 'PendingAcceptance' -and $_.RefreshTokensValidFromDateTime -lt $cutOffDate }
 $oldUnacceptedInvites | Select-Object DisplayName, Mail, MailNickName, RefreshTokensValidFromDateTime, UserState | Export-CSV -Path 'C:\Temp\AzureAD_Guests_StalePendingAcceptance.csv' -NoTypeInformation
