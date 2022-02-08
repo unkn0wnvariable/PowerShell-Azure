@@ -3,7 +3,7 @@
 
 # Import the Az module and connect to Azure
 Import-Module Az
-Connect-AzAccount -UseDeviceAuthentication
+Connect-AzAccount
 
 # RegEx to find the subscriptions we care about
 $subscriptionRegEx = '^.*$'
@@ -26,3 +26,6 @@ foreach ($subscription in $subscriptions) {
 
 # Output sorted list of all default hostnames for the webapps
 Out-File -FilePath $outputFile -InputObject (($allWebAppURLs).DefaultHostName | Sort-Object)
+
+# Disconnect from Azure
+Disconnect-AzAccount

@@ -6,7 +6,7 @@ $outputPath = 'C:\Temp\AllVMs.csv'
 
 # Import the Az module and connect to Azure
 Import-Module Az
-Connect-AzAccount -UseDeviceAuthentication
+Connect-AzAccount
 
 # RegEx to find the subscriptions we care about
 $subscriptionRegEx = '^.*$'
@@ -17,7 +17,7 @@ $subscriptions = Get-AzSubscription | Where-Object {$_.Name -match $subscription
 # Initialise the variable for results
 $allVMs = @()
 
-# Run through the subscriptions getting all the webapps in them
+# Run through the subscriptions getting all the VMs in them
 foreach ($subscription in $subscriptions) {
     Write-Output ('Getting VMs from subscription: ' + $subscription.Name)
     $null = Set-AzContext -SubscriptionObject $subscription
@@ -35,3 +35,6 @@ foreach ($subscription in $subscriptions) {
 
 # Output sorted list of all default hostnames for the webapps
 $allVMs | Sort-Object -Property VMName | Export-Csv -NoTypeInformation -Path $outputPath
+
+# Disconnect from Azure
+Disconnect-AzAccount

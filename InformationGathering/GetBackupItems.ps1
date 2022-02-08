@@ -16,7 +16,7 @@ $workloadType = 'AzureVM'
 
 # Import the Az module and connect to Azure
 Import-Module Az
-Connect-AzAccount -UseDeviceAuthentication
+Connect-AzAccount
 
 # RegEx to find the subscriptions we care about
 $subscriptionRegEx = '^.*$'

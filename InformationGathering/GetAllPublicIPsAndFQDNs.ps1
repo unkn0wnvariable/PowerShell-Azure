@@ -3,7 +3,7 @@
 
 # Import the Az module and connect to Azure
 Import-Module Az
-Connect-AzAccount -UseDeviceAuthentication
+Connect-AzAccount
 
 # RegEx to find the subscriptions we care about
 $subscriptionRegEx = '^.*$'
@@ -29,3 +29,6 @@ Out-File -FilePath $outputFile -InputObject (($publicIPs | Where-Object {$_.Fqdn
 
 # Add sorted list of all static IP addresses with no FQDN to output file
 Out-File -FilePath $outputFile -InputObject (($publicIPs | Where-Object {$_.PublicIpAllocationMethod -eq 'Static' -and $_.Fqdn -eq $null}).IpAddress | Sort-Object) -Append
+
+# Disconnect from Azure
+Disconnect-AzAccount
