@@ -21,3 +21,6 @@ $rgsToDelete = (Get-AzResourceGroup | Where-Object {$_.ResourceGroupName -notin 
 foreach ($rgToDelete in $rgsToDelete) {
     Remove-AzResourceGroup -Name $rgToDelete
 }
+
+# Disconnect from Azure
+Disconnect-AzAccount
