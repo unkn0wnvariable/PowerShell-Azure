@@ -12,7 +12,7 @@ $subscriptionRegEx = '^.*$'
 $outputFile = "C:\Temp\WebApps.txt"
 
 # Get all the relevant subscriptions
-$subscriptions = Get-AzSubscription | Where-Object {$_.Name -match $subscriptionRegEx}
+$subscriptions = Get-AzSubscription | Where-Object { $_.Name -match $subscriptionRegEx }
 
 # Initialise the variable for results
 $allWebAppURLs = @()
@@ -21,7 +21,7 @@ $allWebAppURLs = @()
 foreach ($subscription in $subscriptions) {
     Write-Output ('Getting resources from subscription: ' + $subscription.Name)
     $null = Set-AzContext -SubscriptionObject $subscription
-    $allWebAppURLs += Get-AzWebApp | Select-Object Name,Enabled,DefaultHostName | Where-Object {$_.Enabled -eq $true}
+    $allWebAppURLs += Get-AzWebApp | Select-Object Name, Enabled, DefaultHostName | Where-Object { $_.Enabled -eq $true }
 }
 
 # Output sorted list of all default hostnames for the webapps
