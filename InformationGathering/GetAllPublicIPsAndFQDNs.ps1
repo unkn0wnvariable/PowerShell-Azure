@@ -25,10 +25,13 @@ foreach ($subscription in $subscriptions) {
 }
 
 # Output sorted list of all FQDN's to file
-Out-File -FilePath $outputFile -InputObject (($publicIPs | Where-Object { $_.Fqdn -ne $null }).Fqdn | Sort-Object)
+$outputData = ($publicIPs | Where-Object { $_.Fqdn -ne $null }).Fqdn | Sort-Object
 
 # Add sorted list of all static IP addresses with no FQDN to output file
-Out-File -FilePath $outputFile -InputObject (($publicIPs | Where-Object { $_.PublicIpAllocationMethod -eq 'Static' -and $_.Fqdn -eq $null }).IpAddress | Sort-Object) -Append
+$outputData += ($publicIPs | Where-Object { $_.PublicIpAllocationMethod -eq 'Static' -and $_.Fqdn -eq $null }).IpAddress | Sort-Object
+
+# Save output to file
+Out-File -FilePath $outputFile -InputObject $outputData
 
 # Disconnect from Azure
 Disconnect-AzAccount
