@@ -24,11 +24,13 @@ foreach ($subscription in $subscriptions) {
     $vms = Get-AzVM
     foreach ($vm in $vms) {
         $allVMs += [PSCustomObject]@{
-            VMName      = $vm.Name
-            VMRG        = $vm.ResourceGroupName
-            OSType      = $vm.StorageProfile.OsDisk.OsType
-            OSSku       = $vm.StorageProfile.ImageReference.Sku
-            LicenseType = $vm.LicenseType
+            'Subscription'  = $subscription.Name;
+            'VMName'        = $vm.Name;
+            'VMRG'          = $vm.ResourceGroupName;
+            'OSType'        = $vm.StorageProfile.OsDisk.OsType;
+            'OSSku'         = $vm.StorageProfile.ImageReference.Sku;
+            'VMSize'        = $vm.HardwareProfile.VmSize;
+            'LicenseType'   = $vm.LicenseType
         }
     }
 }
