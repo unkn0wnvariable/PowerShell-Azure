@@ -2,7 +2,7 @@
 #
 
 # Import the Az module and connect to Azure
-Import-Module Az
+Import-Module Az.Accounts, Az.Websites
 Connect-AzAccount
 
 # RegEx to find the subscriptions we care about
