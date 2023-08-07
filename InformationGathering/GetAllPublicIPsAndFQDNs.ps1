@@ -24,10 +24,10 @@ foreach ($subscription in $subscriptions) {
     $publicIPs += Get-AzPublicIpAddress | Where-Object { $_.IpAddress -ne 'Not Assigned' } | Select-Object Name, IpAddress, PublicIpAllocationMethod, @{Name = "Fqdn"; Expression = { $_.DnsSettings.Fqdn } }
 }
 
-# Output sorted list of all FQDN's to file
+# Add sorted list of all FQDN's to output data
 $outputData = ($publicIPs | Where-Object { $_.Fqdn -ne $null }).Fqdn | Sort-Object
 
-# Add sorted list of all static IP addresses with no FQDN to output file
+# Add sorted list of all static IP addresses with no FQDN to output data
 $outputData += ($publicIPs | Where-Object { $_.PublicIpAllocationMethod -eq 'Static' -and $_.Fqdn -eq $null }).IpAddress | Sort-Object
 
 # Save output to file
