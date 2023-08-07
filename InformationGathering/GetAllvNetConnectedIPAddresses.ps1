@@ -10,8 +10,8 @@ $outputFilesPrefix = 'vNetPrivateIPAddresses'
 # RegEx to find the subscriptions we care about
 $subscriptionRegEx = '^.*$'
 
-# Import the module and connect to Azure
-Import-Module -Name Az
+# Import required Az modules and connect to Azure
+Import-Module -Name Az.Accounts, Az.Network
 Connect-AzAccount
 
 # Get all the relevant subscriptions
@@ -28,7 +28,7 @@ foreach ($subscription in $subscriptions) {
 
     # Select the subscription to run commands against
     Write-Output ('Getting resources from subscription: ' + $subscription.Name)
-    $null = Select-AzSubscription -SubscriptionObject $subscription
+    $null = Set-AzContext -SubscriptionObject $subscription
 
     # Get all virtual networks from the selected subscription
     $virtualNetworks = Get-AzVirtualNetwork
