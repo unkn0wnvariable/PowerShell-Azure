@@ -14,8 +14,8 @@ $outputFile = 'C:\Temp\AzureActivityLogs.csv'
 # RegEx to find the subscriptions we care about
 $subscriptionRegEx = '^.*$'
 
-# Import the module and connect to Azure
-Import-Module -Name Az
+# Import required Az modules and connect to Azure
+Import-Module -Name Az.Accounts, Az.Monitor
 Connect-AzAccount
 
 # Get all the relevant subscriptions
