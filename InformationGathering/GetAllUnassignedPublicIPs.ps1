@@ -1,12 +1,12 @@
 # Script to get all assigned public IPs and FQDNs for resources in an Azure tenant.
 #
 
+# RegEx to find the subscriptions we care about
+$subscriptionRegEx = '^.*$'
+
 # Import required Az modules and connect to Azure
 Import-Module Az.Accounts, Az.Network
 Connect-AzAccount
-
-# RegEx to find the subscriptions we care about
-$subscriptionRegEx = '^.*$'
 
 # Get all the relevant subscriptions
 $subscriptions = Get-AzSubscription | Where-Object { $_.Name -match $subscriptionRegEx }
