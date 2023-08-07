@@ -39,5 +39,3 @@ $allSqlServers | Sort-Object -Property Timestamp | Export-Csv -Path $outputFileA
 
 # Disconnect from Azure
 Disconnect-AzAccount
-
-
