@@ -8,8 +8,8 @@ $outputFileSuffix = '_RoleAssignments.csv'
 # RegEx to find the subscriptions we care about
 $subscriptionRegEx = '^.*$'
 
-# Import the module and connect to Azure
-Import-Module -Name Az
+# Import required Az modules and connect to Azure
+Import-Module -Name Az.Accounts, Az.Resources
 Connect-AzAccount
 
 # Get all the relevant subscriptions
@@ -18,7 +18,7 @@ $subscriptions = Get-AzSubscription | Where-Object {$_.Name -match $subscription
 # Run through the subscriptions getting all the assigned roles and saving them to seperate CSV files
 foreach ($subscription in $subscriptions) {
     $outputPath = $outputFilePath + $subscription.Name + $outputFileSuffix
-    $null = Set-AzContext -Subscription $subscription
+    $null = Set-AzContext -SubscriptionObject $subscription
     $roleAssignments = (Get-AzRoleAssignment | Where-Object {$_.ObjectType -ne 'ServicePrincipal'} | Select-Object -Property DisplayName,SignInName,ObjectType,RoleDefinitionName,Scope)
     $roleAssignments | Sort-Object -Property Scope | Export-Csv -Path $outputPath -NoTypeInformation
 }
