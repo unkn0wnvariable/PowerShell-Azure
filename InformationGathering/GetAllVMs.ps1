@@ -4,12 +4,12 @@
 # OPutput file
 $outputPath = 'C:\Temp\AllVMs.csv'
 
-# Import the Az module and connect to Azure
-Import-Module Az
-Connect-AzAccount
-
 # RegEx to find the subscriptions we care about
 $subscriptionRegEx = '^.*$'
+
+# Import required Az modules and connect to Azure
+Import-Module Az.Accounts, Az.Compute
+Connect-AzAccount
 
 # Get all the relevant subscriptions
 $subscriptions = Get-AzSubscription | Where-Object {$_.Name -match $subscriptionRegEx}
