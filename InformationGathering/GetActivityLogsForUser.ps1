@@ -25,7 +25,7 @@ $subscriptions = Get-AzSubscription | Where-Object { $_.Name -match $subscriptio
 $outputEntries = @()
 foreach ($subscription in $subscriptions) {
     # Switch to the subscription
-    $null = Set-AzContext -Subscription $subscription
+    $null = Set-AzContext -SubscriptionObject $subscription
 
     # Get all activity log entries matching our criteria
     $activityLog = Get-AzActivityLog -StartTime $startTime -EndTime $endTime -Caller $username -DetailedOutput
