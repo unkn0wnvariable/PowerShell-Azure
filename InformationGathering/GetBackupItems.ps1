@@ -14,8 +14,8 @@ $containerType = 'AzureVM'
 # One of AzureVM, AzureSQLDatabase, AzureFiles, or MSSQL.
 $workloadType = 'AzureVM'
 
-# Import the Az module and connect to Azure
-Import-Module Az
+# Import required Az modules and connect to Azure
+Import-Module Az.Accounts, Az.RecoveryServices
 Connect-AzAccount
 
 # RegEx to find the subscriptions we care about
