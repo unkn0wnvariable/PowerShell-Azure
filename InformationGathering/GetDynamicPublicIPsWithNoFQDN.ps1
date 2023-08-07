@@ -1,15 +1,15 @@
 # Script to get all assigned public IPs and FQDNs for resources in an Azure tenant.
 #
 
-# Import the Az module and connect to Azure
-Import-Module Az
-Connect-AzAccount
+# Where to save the results?
+$outputFile = "C:\Temp\DynamicPublicIPsWithNoFQDN.csv"
 
 # RegEx to find the subscriptions we care about
 $subscriptionRegEx = '^.*$'
 
-# Where to save the results?
-$outputFile = "C:\Temp\DynamicPublicIPsWithNoFQDN.txt"
+# Import required Az modules and connect to Azure
+Import-Module Az.Accounts, Az.Network
+Connect-AzAccount
 
 # Get all the relevant subscriptions
 $subscriptions = Get-AzSubscription | Where-Object {$_.Name -match $subscriptionRegEx}
@@ -25,7 +25,7 @@ foreach ($subscription in $subscriptions) {
 }
 
 # Output sorted list of all dynamic IP addresses with no FQDN
-$publicIPs | Sort-Object | Format-Table -Property Name,IpAddress > $outputFile
+$publicIPs | Sort-Object | Export-Csv -Path $outputFile -NoTypeInformation
 
 # Disconnect from Azure
 Disconnect-AzAccount
