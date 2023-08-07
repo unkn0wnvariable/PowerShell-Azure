@@ -1,8 +1,8 @@
 # Script to get all assigned public IPs and FQDNs for resources in an Azure tenant.
 #
 
-# Import the Az module and connect to Azure
-Import-Module Az
+# Import required Az modules and connect to Azure
+Import-Module Az.Accounts, Az.Network
 Connect-AzAccount
 
 # RegEx to find the subscriptions we care about
@@ -21,7 +21,8 @@ foreach ($subscription in $subscriptions) {
     $unassignedPublicIPs += Get-AzPublicIpAddress | Where-Object { $_.IpAddress -eq 'Not Assigned' } | Select-Object Name, IpAddress, PublicIpAllocationMethod, @{Name = "Fqdn"; Expression = { $_.DnsSettings.Fqdn } }
 }
 
-$unassignedPublicIPs | Format-Table
+# Output results to screen as a table
+$unassignedPublicIPs | Format-Table -AutoSize
 
 # Disconnect from Azure
 Disconnect-AzAccount
