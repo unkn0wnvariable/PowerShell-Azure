@@ -8,7 +8,7 @@ $outputPath = 'C:\Temp\AllVMs.csv'
 $subscriptionRegEx = '^.*$'
 
 # Import required Az modules and connect to Azure
-Import-Module Az.Accounts, Az.Compute
+Import-Module -Name Az.Accounts, Az.Compute
 Connect-AzAccount
 
 # Get all the relevant subscriptions

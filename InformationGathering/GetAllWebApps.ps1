@@ -8,7 +8,7 @@ $outputFile = "C:\Temp\WebApps.txt"
 $subscriptionRegEx = '^.*$'
 
 # Import required Az modules and connect to Azure
-Import-Module Az.Accounts, Az.Websites
+Import-Module -Name Az.Accounts, Az.Websites
 Connect-AzAccount
 
 # Get all the relevant subscriptions

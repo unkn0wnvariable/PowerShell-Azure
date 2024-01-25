@@ -8,7 +8,7 @@ $outputFile = "C:\Temp\PublicIPsAndFQDNs.txt"
 $subscriptionRegEx = '^.*$'
 
 # Import required Az modules and connect to Azure
-Import-Module Az.Accounts, Az.Network
+Import-Module -Name Az.Accounts, Az.Network
 Connect-AzAccount
 
 # Get all the relevant subscriptions
