@@ -73,7 +73,7 @@ $keyVaultRegeneratePeriod = '3' # days
 $sasTokenValidityPeriod = '30' # days
 
 # Import required module, clean any current contexts and connect to Azure
-Import-Module Az
+Import-Module -Name Az.Accounts, Az.Storage, Az.Resources, Az.KeyVault
 Clear-AzContext -Scope Process
 Clear-AzContext -Scope CurrentUser -Force -ErrorAction SilentlyContinue
 Connect-AzAccount -UseDeviceAuthentication

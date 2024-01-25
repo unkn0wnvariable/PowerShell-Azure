@@ -2,7 +2,7 @@
 #
 
 # Import the Az module and connect to Azure
-Import-Module -Name Az
+Import-Module -Name Az.Accounts, Az.Compute
 Connect-AzAccount -UseDeviceAuthentication
 
 # Show a selectable list of locations, e.g.: UK South

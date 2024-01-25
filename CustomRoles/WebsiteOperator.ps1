@@ -4,7 +4,7 @@
 #
 
 # Import Az module and connect to account.
-Import-Module -Name Az
+Import-Module -Name Az.Accounts, Az.Resources
 Connect-AzAccount -UseDeviceAuthentication
 
 # Which subscriptions should be able to use the new role?
@@ -53,3 +53,6 @@ catch {
     $role.AssignableScopes = $roleAssignableScopes
     New-AzRoleDefinition -Role $role
 }
+
+# Disconnect from Azure
+Disconnect-AzAccount

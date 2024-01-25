@@ -11,7 +11,7 @@ $rgExclusionsRegex = '^AzureBackup.*$|^cloud-shell-storage.*$|^NetworkWatcher.*$
 $lockExceptions = @('')
 
 # Import the Az module and connect to Azure
-Import-Module -Name Az
+Import-Module -Name Az.Accounts, Az.Resources
 Connect-AzAccount
 
 # Get all the relevant subscriptions

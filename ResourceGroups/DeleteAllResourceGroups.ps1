@@ -2,7 +2,7 @@
 #
 
 # Import the Az module and connect to Azure
-Import-Module Az
+Import-Module -Name Az.Accounts, Az.Resources
 Connect-AzAccount -UseDeviceAuthentication
 
 # What subscription are we deleting resources from?
