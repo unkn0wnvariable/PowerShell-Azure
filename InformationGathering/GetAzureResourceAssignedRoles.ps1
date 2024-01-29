@@ -13,13 +13,23 @@ Import-Module -Name Az.Accounts, Az.Resources
 Connect-AzAccount
 
 # Get all the relevant subscriptions
-$subscriptions = Get-AzSubscription | Where-Object {$_.Name -match $subscriptionRegEx}
+$subscriptions = Get-AzSubscription | Where-Object { $_.Name -match $subscriptionRegEx -and $_.State -eq 'Enabled' } | Sort-Object -Property 'Name'
+
+# Properties to include in the output
+$properties = @(
+    'DisplayName',
+    'SignInName',
+    'ObjectId',
+    'ObjectType',
+    'RoleDefinitionName',
+    'Scope'
+)
 
 # Run through the subscriptions getting all the assigned roles and saving them to seperate CSV files
 foreach ($subscription in $subscriptions) {
     $outputPath = $outputFilePath + $subscription.Name + $outputFileSuffix
     $null = Set-AzContext -SubscriptionObject $subscription
-    $roleAssignments = (Get-AzRoleAssignment | Where-Object {$_.ObjectType -ne 'ServicePrincipal'} | Select-Object -Property DisplayName,SignInName,ObjectType,RoleDefinitionName,Scope)
+    $roleAssignments = (Get-AzRoleAssignment | Where-Object { $_.ObjectType -ne 'ServicePrincipal' } | Select-Object -Property $properties )
     $roleAssignments | Sort-Object -Property Scope | Export-Csv -Path $outputPath -NoTypeInformation
 }
 
