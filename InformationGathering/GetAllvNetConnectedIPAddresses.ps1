@@ -63,12 +63,12 @@ foreach ($subscription in $subscriptions) {
 
     # Output just the list of IP addresses to a txt file
     $outputTxtFileSubscription = $outputFilesPath + $outputFilesPrefix + '_' + $subscription.Name + '.txt'
-    $vNetConnectedIPs.PrivateIpAddress | Out-File -FilePath $outputTxtFileSubscription
+    $vNetConnectedIPs.PrivateIpAddress | Sort-Object -Property { [Version]$_ } | Out-File -FilePath $outputTxtFileSubscription
 }
 
 # Output Full details to CSV a file
 $outputCsvFileSubscription = $outputFilesPath + $outputFilesPrefix + '.csv'
-$allVNetConnectedIPs | Export-Csv -Path $outputCsvFileSubscription -NoTypeInformation
+$allVNetConnectedIPs | Sort-Object -Property { [Version]$_.PrivateIpAddress } | Export-Csv -Path $outputCsvFileSubscription -NoTypeInformation
 
 # Disconnect from Azure
 Disconnect-AzAccount
