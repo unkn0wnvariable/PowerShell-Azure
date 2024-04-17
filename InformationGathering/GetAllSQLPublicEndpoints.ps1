@@ -1,12 +1,13 @@
-# 
+# Script to get all SQL server public endpoints in an Azure tenant.
+#
+# Outputs full details of the results to a CSV file plus a basic list of IPs to a text file for each subscription
 #
 
 # Where to create the output file?
-$outputFilePath = 'C:\Temp\'
+$outputPath = 'C:\Temp\'
 
-# Variable for the output filename
-$outputFilePrefix = 'SQLServerPublicEndpoints_'
-$outputFileSuffix = '.csv'
+# Filename and suffix for results files
+$outputFilesPrefix = 'SQLServerPublicEndpoints_'
 
 # RegEx to find the subscriptions we care about
 $subscriptionRegEx = '^.*$'
@@ -23,19 +24,34 @@ $allSqlServers = @()
 
 # Run through the subscriptions getting all SQL servers and their details
 foreach ($subscription in $subscriptions) {
+    Write-Output ('Getting resources from subscription: ' + $subscription.Name)
     $null = Set-AzContext -SubscriptionObject $subscription
-    $sqlServers = Get-AzResourceGroup | Get-AzSqlServer | Select-Object -Property ResourceGroupName, ServerName, Location, SqlAdministratorLogin, ServerVersion, FullyQualifiedDomainName, MinimalTlsVersion, PublicNetworkAccess, RestrictOutboundNetworkAccess # | Where-Object {$_.PublicNetworkAccess -eq 'Enabled'}
 
-    $outputFileSubscription = $outputFilePath + $outputFilePrefix + $subscription.Name + $outputFileSuffix
-    $sqlServers | Sort-Object -Property Timestamp | Export-Csv -Path $outputFileSubscription -NoTypeInformation
+    $properties = @(
+        'ServerName',
+        'ResourceGroupName',
+        'FullyQualifiedDomainName',
+        'Location',
+        'SqlAdministratorLogin',
+        'ServerVersion',
+        'MinimalTlsVersion',
+        'PublicNetworkAccess',
+        'RestrictOutboundNetworkAccess'
+    )
+
+    $sqlServers = Get-AzResourceGroup | Get-AzSqlServer | Select-Object -Property $properties # | Where-Object {$_.PublicNetworkAccess -eq 'Enabled'}
+
+    $subOutputFilePath = $outputPath + $outputFilesPrefix + $subscription.Name + '.txt'
+    Out-File -FilePath $subOutputFilePath -InputObject ($sqlServers.FullyQualifiedDomainName | Sort-Object)
+
     $allSqlServers += $sqlServers
 }
 
 # Establish output filename
-$outputFileAll = $outputFilePath + $outputFilePrefix + 'all' + $outputFileSuffix
+$outputFileAll = $outputPath + $outputFilesPrefix + 'all.csv'
 
 # Output results to file
-$allSqlServers | Sort-Object -Property Timestamp | Export-Csv -Path $outputFileAll -NoTypeInformation
+$allSqlServers | Sort-Object -Property 'ServerName' | Export-Csv -Path $outputFileAll -NoTypeInformation
 
 # Disconnect from Azure
 Disconnect-AzAccount
