@@ -35,7 +35,7 @@ foreach ($subscription in $subscriptions) {
     )
 
     $subOutputFilePath = $outputPath + $outputFilesPrefix + $subscription.Name + '.txt'
-    Out-File -FilePath $subOutputFilePath -InputObject $subOutputData
+    $subOutputData | Out-File -FilePath $subOutputFilePath
 
     $allPublicIPs += $publicIPs
 }

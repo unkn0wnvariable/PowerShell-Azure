@@ -42,7 +42,7 @@ foreach ($subscription in $subscriptions) {
     $sqlServers = Get-AzResourceGroup | Get-AzSqlServer | Select-Object -Property $properties # | Where-Object {$_.PublicNetworkAccess -eq 'Enabled'}
 
     $subOutputFilePath = $outputPath + $outputFilesPrefix + $subscription.Name + '.txt'
-    Out-File -FilePath $subOutputFilePath -InputObject ($sqlServers.FullyQualifiedDomainName | Sort-Object)
+    ($sqlServers.FullyQualifiedDomainName | Sort-Object) | Out-File -FilePath $subOutputFilePath
 
     $allSqlServers += $sqlServers
 }

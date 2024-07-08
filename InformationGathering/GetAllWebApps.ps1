@@ -43,7 +43,7 @@ foreach ($subscription in $subscriptions) {
 
     $subOutputFilePath = $outputPath + $outputFilesPrefix + $subscription.Name + '.txt'
     $webAppURLs = ($webApps).DefaultHostName | Sort-Object
-    Out-File -FilePath $subOutputFilePath -InputObject $webAppURLs
+    $webAppURLs | Out-File -FilePath $subOutputFilePath
 
     $allWebApps += $webApps
 }
