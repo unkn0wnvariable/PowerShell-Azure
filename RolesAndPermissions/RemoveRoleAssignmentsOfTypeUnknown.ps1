@@ -5,7 +5,7 @@
 $subscriptionRegEx = '^.*$'
 
 # Import the module and connect to Azure
-Import-Module -Name Az.Accounts, Az.Resources, ImportExcel
+Import-Module -Name Az.Accounts, Az.Resources
 Connect-AzAccount
 
 # Get all the relevant subscriptions
