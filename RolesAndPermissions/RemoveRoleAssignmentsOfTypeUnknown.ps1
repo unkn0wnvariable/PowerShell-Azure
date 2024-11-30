@@ -14,9 +14,9 @@ $subscriptions = Get-AzSubscription | Where-Object { $_.Name -match $subscriptio
 # Remove role assignments
 foreach ($subscription in $subscriptions) {
     $null = Set-AzContext -Subscription $subscription
-    $roleAssignments = (Get-AzRoleAssignment | Where-Object -FilterScript { $_.ObjectType -eq 'Unknown' } )
+    $roleAssignments = (Get-AzRoleAssignment | Where-Object -FilterScript { $_.ObjectType -eq 'Unknown' } | Sort-Object -Property Scope)
 
     foreach ($roleAssignment in $roleAssignments) {
-        Remove-AzRoleAssignment -ObjectId $roleAssignment.ObjectId -RoleDefinitionId $roleAssignment.RoleDefinitionId -Scope $roleAssignment.Scope
+        Remove-AzRoleAssignment -ObjectId $roleAssignment.ObjectId -RoleDefinitionName $roleAssignment.RoleDefinitionName -Scope $roleAssignment.Scope
     }
 }
