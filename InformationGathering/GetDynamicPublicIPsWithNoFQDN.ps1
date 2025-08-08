@@ -4,7 +4,7 @@
 # Where to save the results?
 $outputFile = "C:\Temp\DynamicPublicIPsWithNoFQDN.csv"
 
-# RegEx to find the subscriptions we care about
+# RegEx to find the relevant subscriptions
 $subscriptionRegEx = '^.*$'
 
 # Import required Az modules and connect to Azure

@@ -4,7 +4,7 @@
 # Where to create the CSV file?
 $outputFile = 'C:\Temp\UnknownRoleAssignments.csv'
 
-# RegEx to find the subscriptions we care about
+# RegEx to find the relevant subscriptions
 $subscriptionRegEx = '^.*$'
 
 # Import the module and connect to Azure

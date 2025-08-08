@@ -18,7 +18,7 @@ $workloadType = 'AzureVM'
 Import-Module -Name Az.Accounts, Az.RecoveryServices
 Connect-AzAccount
 
-# RegEx to find the subscriptions we care about
+# RegEx to find the relevant subscriptions
 $subscriptionRegEx = '^.*$'
 
 # Get all the relevant subscriptions

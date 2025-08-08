@@ -4,7 +4,7 @@
 # OPutput file
 $outputPath = 'C:\Temp\AllVMsDetailed.csv'
 
-# RegEx to find the subscriptions we care about
+# RegEx to find the relevant subscriptions
 $subscriptionRegEx = '^.*$'
 
 # Import required Az modules and connect to Azure

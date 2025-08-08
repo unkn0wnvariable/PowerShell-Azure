@@ -1,7 +1,7 @@
 # Script to get all roles assignments where the object type is unknown (object deleted) and remove them
 #
 
-# RegEx to find the subscriptions we care about
+# RegEx to find the relevant subscriptions
 $subscriptionRegEx = '^.*$'
 
 # Import the module and connect to Azure

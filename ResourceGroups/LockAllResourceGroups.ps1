@@ -1,7 +1,7 @@
 # Script to bulk add CanNotDelete locks to all resource groups in multiple subscriptions, with exceptions
 #
 
-# RegEx to find the subscriptions we care about
+# RegEx to find the relevant subscriptions
 $subscriptionRegEx = '^.*$'
 
 # Regex to exclude some common Azure auto created resource groups that shouldn't be locked

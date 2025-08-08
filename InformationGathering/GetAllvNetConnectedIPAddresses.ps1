@@ -9,7 +9,7 @@ $outputPath = 'C:\Temp\'
 # Filename for results files
 $outputFilesPrefix = 'vNetPrivateIPAddresses_'
 
-# RegEx to find the subscriptions we care about
+# RegEx to find the relevant subscriptions
 $subscriptionRegEx = '^.*$'
 
 # Import required Az modules and connect to Azure

@@ -4,7 +4,7 @@
 # Where to save the results?
 $outputFile = 'C:\Temp\RoleAssignmentsExport.xlsx'
 
-# RegEx to find the subscriptions we care about
+# RegEx to find the relevant subscriptions
 $subscriptionRegEx = '^.*$'
 
 # Import the module and connect to Azure
