@@ -29,8 +29,6 @@ $subscriptions = Get-AzSubscription | Where-Object { $_.Name -match $subscriptio
 # Get role assignments
 $allRoleAssignments = @()
 foreach ($subscription in $subscriptions) {
-    $subscription = $subscriptions[4]
-
     $null = Set-AzContext -Subscription $subscription
     $allRoleAssignments += (Get-AzRoleAssignment | Where-Object -FilterScript { $_.DisplayName -eq $null -and $_.SignInName -eq $null })
 }
